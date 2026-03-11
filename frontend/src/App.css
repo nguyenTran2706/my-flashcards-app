@@ -10,11 +10,12 @@
 .flashcard-inner {
     position: relative;
     width: 100%;
-    height: 220px;
+    height: 240px;
+    /* Slightly taller for a better aspect ratio */
     text-align: center;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     transform-style: preserve-3d;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
 }
 
 .flashcard-inner.is-flipped {
@@ -32,118 +33,106 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: var(--radius-lg);
-    padding: 28px 24px;
-    border: 1px solid var(--border-subtle);
-    overflow: hidden;
+    border-radius: var(--radius-md);
+    padding: 32px 24px;
+    border: 1px solid var(--gray-300);
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
 }
 
-/* Front */
-.flashcard-front {
-    background: var(--bg-card);
-    backdrop-filter: blur(10px);
+.flashcard-container:hover .flashcard-inner .flashcard-front,
+.flashcard-container:hover .flashcard-inner .flashcard-back {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    /* Soft lift effect */
+    border-color: var(--gray-400);
 }
 
-.flashcard-front::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: var(--gradient-primary);
-    opacity: 0.6;
-}
-
-.flashcard-container:hover .flashcard-inner {
-    box-shadow: var(--shadow-glow);
-}
-
+/* Category Badge */
 .card-category {
     position: absolute;
-    top: 14px;
-    left: 16px;
-    font-size: 0.7rem;
-    font-weight: 600;
+    top: 16px;
+    left: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--primary-400);
-    background: rgba(99, 102, 241, 0.1);
-    padding: 4px 10px;
-    border-radius: 9999px;
+    letter-spacing: 0.5px;
+    color: var(--gray-500);
 }
 
+/* Text */
 .card-question {
-    font-size: 1.05rem;
+    font-size: 1.25rem;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--gray-900);
     line-height: 1.5;
-    padding: 0 8px;
+    padding: 0 16px;
 }
 
 .card-hint {
     position: absolute;
-    bottom: 14px;
-    font-size: 0.75rem;
-    color: var(--text-muted);
+    bottom: 16px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--gray-400);
 }
 
-/* Back */
+/* Back of Card */
 .flashcard-back {
     transform: rotateY(180deg);
-    background: linear-gradient(145deg, rgba(99, 102, 241, 0.12), rgba(139, 92, 246, 0.06));
-    border-color: var(--border-accent);
-    backdrop-filter: blur(10px);
+    background: var(--gray-50);
+    /* Very subtle off-white for the answer side */
 }
 
 .card-answer-label {
-    font-size: 0.7rem;
-    font-weight: 600;
+    font-size: 0.75rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--primary-400);
+    letter-spacing: 0.5px;
+    color: var(--success);
+    /* Give the answer label a distinct, positive color */
     margin-bottom: 12px;
 }
 
 .card-answer {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     font-weight: 500;
-    color: var(--text-primary);
-    line-height: 1.6;
+    color: var(--gray-900);
+    line-height: 1.5;
+    padding: 0 16px;
 }
 
 /* Action buttons */
 .card-actions {
     position: absolute;
     bottom: 12px;
-    right: 14px;
+    right: 16px;
     display: flex;
-    gap: 6px;
+    gap: 8px;
     z-index: 10;
 }
 
 .card-action-btn {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--radius-sm);
-    background: rgba(255, 255, 255, 0.06);
+    border-radius: 50%;
+    /* Make them circular for a cleaner look */
+    background: transparent;
     border: 1px solid transparent;
-    font-size: 0.85rem;
+    font-size: 1rem;
+    color: var(--gray-400);
     transition: all var(--transition-fast);
-    color: var(--text-muted);
 }
 
 .card-action-btn:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: var(--border-subtle);
-    color: var(--text-primary);
+    background: var(--gray-100);
+    color: var(--gray-800);
 }
 
 .card-action-btn.delete:hover {
-    background: rgba(239, 68, 68, 0.15);
-    border-color: rgba(239, 68, 68, 0.3);
-    color: #fca5a5;
+    background: #fee2e2;
+    color: var(--danger);
 }

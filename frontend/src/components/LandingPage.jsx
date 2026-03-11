@@ -4,82 +4,59 @@ import { Link } from 'react-router-dom';
 const LandingPage = () => {
     return (
         <div className="landing-page">
-            {/* Hero Section */}
             <section className="hero-section">
-                <div className="hero-badge">
-                    ✨ The smarter way to study
-                </div>
+                <div className="hero-content">
+                    <h1 className="hero-title">
+                        Simple flashcards for everyday study
+                    </h1>
 
-                <h1 className="hero-title">
-                    Master anything with<br />
-                    <span className="gradient-text">interactive flashcards</span>
-                </h1>
+                    <p className="hero-subtitle">
+                        Keep a small collection of cards for the topics you actually care about.
+                        Nothing fancy – just a straightforward way to remember things.
+                    </p>
 
-                <p className="hero-subtitle">
-                    Create, study, and conquer any subject. FlashMaster makes learning
-                    faster, smarter, and more engaging than ever before.
-                </p>
-
-                <div className="hero-actions">
-                    <Link to="/study" className="btn btn-primary">
-                        Get Started Free →
-                    </Link>
-                    <Link to="/study" className="btn btn-secondary">
-                        Browse Cards
-                    </Link>
-                </div>
-
-                <div className="hero-stats">
-                    <div className="stat-item">
-                        <div className="stat-number">10K+</div>
-                        <div className="stat-label">Flashcards Created</div>
-                    </div>
-                    <div className="stat-item">
-                        <div className="stat-number">500+</div>
-                        <div className="stat-label">Active Learners</div>
-                    </div>
-                    <div className="stat-item">
-                        <div className="stat-number">98%</div>
-                        <div className="stat-label">Success Rate</div>
+                    <div className="hero-actions">
+                        <Link to="/study" className="btn btn-primary">
+                            Go to your cards
+                        </Link>
+                        <Link to="/study" className="btn btn-secondary">
+                            Add a new card
+                        </Link>
                     </div>
                 </div>
             </section>
 
-            {/* Features Section */}
             <section className="features-section">
                 <div className="section-header">
-                    <p className="section-tag">Why FlashMaster?</p>
-                    <h2 className="section-title">Everything you need to learn</h2>
+                    <h2 className="section-title">Built to stay out of your way</h2>
                     <p className="section-subtitle">
-                        Powerful tools to help you create, study, and retain knowledge effectively.
+                        A lightweight layout, a single place to add and review cards, and just
+                        enough structure to keep things organised.
                     </p>
                 </div>
 
                 <div className="features-grid">
                     <div className="feature-card">
-                        <div className="feature-icon">📝</div>
-                        <h3>Create Instantly</h3>
+                        <h3>Create cards quickly</h3>
                         <p>
-                            Build your own flashcard sets in seconds. Add questions, answers,
-                            and organize by category for structured learning.
+                            Add a question, an answer, and a category. That&apos;s it – no extra
+                            fields or steps.
                         </p>
                     </div>
 
                     <div className="feature-card">
-                        <div className="feature-icon">🔄</div>
-                        <h3>Interactive Study</h3>
+                        <h3>Review at your own pace</h3>
                         <p>
-                            Flip through cards with smooth animations. Test yourself and
-                            actively recall information to boost memory retention.
+                            Flip cards when you&apos;re ready and edit them as your understanding
+                            improves.
                         </p>
                     </div>
 
                     <div className="feature-card">
-                        <div className="feature-icon">📊</div>
-                        <h3>Track Progress</h3>
+                        <h3>Keep everything in one place</h3>
                         <p>
-                            Monitor how many cards you've mastered. Stay motivated with a clear
-                            overview of your learning journey.
+                            Use categories to group topics so you can come back to them later
+                            without digging through notebooks.
                         </p>
                     </div>
                 </div>
