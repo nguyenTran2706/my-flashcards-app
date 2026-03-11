@@ -4,7 +4,7 @@ const FlashcardForm = ({ formData, editingId, onInputChange, onSubmit, onCancel 
     return (
         <div className="card-form-section">
             <form onSubmit={onSubmit} className="card-form">
-                <h2>{editingId ? '✏️ Edit Flashcard' : '✨ Create New Flashcard'}</h2>
+                <h2>{editingId ? 'Edit flashcard' : 'Add a new flashcard'}</h2>
 
                 <div className="form-row">
                     <div className="form-group">
@@ -12,7 +12,7 @@ const FlashcardForm = ({ formData, editingId, onInputChange, onSubmit, onCancel 
                         <input
                             className="form-input"
                             name="question"
-                            placeholder="What do you want to learn?"
+                            placeholder="Question"
                             value={formData.question}
                             onChange={onInputChange}
                             required
@@ -41,7 +41,7 @@ const FlashcardForm = ({ formData, editingId, onInputChange, onSubmit, onCancel 
                     <input
                         className="form-input"
                         name="answer"
-                        placeholder="The answer to your question..."
+                            placeholder="Answer"
                         value={formData.answer}
                         onChange={onInputChange}
                         required
@@ -50,7 +50,7 @@ const FlashcardForm = ({ formData, editingId, onInputChange, onSubmit, onCancel 
 
                 <div className="form-actions">
                     <button type="submit" className="btn-submit">
-                        {editingId ? 'Save Changes' : '+ Add Flashcard'}
+                        {editingId ? 'Save changes' : 'Save card'}
                     </button>
                     {editingId && (
                         <button type="button" className="btn-cancel" onClick={onCancel}>

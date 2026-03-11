@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 
 const flashcardSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User',
+    },
     question: {
         type: String,
         required: [true, 'Please add a question'],

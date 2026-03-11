@@ -1,15 +1,16 @@
 import express from 'express';
 import { getCards, createCard, updateCard, deleteCard } from '../controllers/cardController.js';
+import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// Group the routes by their path
+// Group the routes by their path and protect them
 router.route('/')
-    .get(getCards)
-    .post(createCard);
+    .get(protect, getCards)
+    .post(protect, createCard);
 
 router.route('/:id')
-    .put(updateCard)
-    .delete(deleteCard);
+    .put(protect, updateCard)
+    .delete(protect, deleteCard);
 
 export default router;

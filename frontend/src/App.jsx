@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
+import { AuthProvider, AuthContext } from './context/AuthContext';
 import Navbar from './components/navbar';
 import LandingPage from './components/LandingPage';
 import FlashcardForm from './components/flashcardForm';
 import FlashcardList from './components/flashcardList';
+import AuthForms from './components/AuthForms';
 import * as api from './services/api';
 import './App.css';
 
@@ -12,17 +14,20 @@ const StudyPage = () => {
     const [formData, setFormData] = useState({ question: '', answer: '', category: 'General' });
     const [editingId, setEditingId] = useState(null);
     const [error, setError] = useState('');
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
-        fetchCards();
-    }, []);
+        if (user) {
+            fetchCards();
+        }
+    }, [user]);
 
     const fetchCards = async () => {
         try {
             const data = await api.getFlashcards();
             setFlashcards(data);
         } catch (err) {
-            setError('Could not load flashcards from the database.');
+            setError('Could not load flashcards. Please sign in again.');
         }
     };
 
@@ -32,6 +37,8 @@ const StudyPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!user) return setError('You must be signed in to create flashcards.');
+
         try {
             if (editingId) {
                 const updatedCard = await api.updateFlashcard(editingId, formData);
@@ -44,11 +51,12 @@ const StudyPage = () => {
             setFormData({ question: '', answer: '', category: 'General' });
             setError('');
         } catch (err) {
-            setError('Failed to save the flashcard.');
+            setError('Failed to save the flashcard. ' + (err.response?.data?.message || ''));
         }
     };
 
     const handleDelete = async (id) => {
+        if (!user) return;
         try {
             await api.deleteFlashcard(id);
             setFlashcards(flashcards.filter(card => card._id !== id));
@@ -66,6 +74,16 @@ const StudyPage = () => {
         setFormData({ question: '', answer: '', category: 'General' });
         setEditingId(null);
     };
+
+    if (!user) {
+        return (
+            <div className="study-page" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+                <h2 style={{ fontSize: '1.8rem', color: 'var(--gray-900)', marginBottom: '16px' }}>Sign in to start studying</h2>
+                <p style={{ color: 'var(--gray-500)', marginBottom: '24px' }}>You need an account to create and save your personal flashcards.</p>
+                <Link to="/auth" className="btn btn-primary">Go to Login / Sign Up</Link>
+            </div>
+        );
+    }
 
     return (
         <div className="study-page">
@@ -93,15 +111,24 @@ const StudyPage = () => {
     );
 };
 
-const App = () => {
+const AppRoutes = () => {
     return (
         <>
             <Navbar />
             <Routes>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/study" element={<StudyPage />} />
+                <Route path="/auth" element={<AuthForms />} />
             </Routes>
         </>
+    );
+};
+
+const App = () => {
+    return (
+        <AuthProvider>
+            <AppRoutes />
+        </AuthProvider>
     );
 };
 
