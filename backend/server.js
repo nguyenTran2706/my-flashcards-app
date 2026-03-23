@@ -22,6 +22,12 @@ app.use('/api/flashcards', cardRoutes);
 app.use('/api/users', authRoutes); // NEW ROUTE
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+
+// Only listen locally, Vercel will use the exported app
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Server is running on http://localhost:${PORT}`);
+    });
+}
+
+export default app;
