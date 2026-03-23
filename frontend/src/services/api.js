@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Base URL for your local backend server
-const API_URL = 'http://localhost:5000/api/';
+// Base URL for your local backend server or production server
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api/' : 'http://localhost:5000/api/');
 
 // Helper to get auth header
 const authHeader = () => {
