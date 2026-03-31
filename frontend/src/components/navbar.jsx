@@ -32,6 +32,12 @@ const Navbar = () => {
                 >
                     Study
                 </Link>
+                <Link
+                    to="/review"
+                    className={`nav-link ${location.pathname === '/review' ? 'active' : ''}`}
+                >
+                    Review
+                </Link>
 
                 {user ? (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginLeft: '8px' }}>
