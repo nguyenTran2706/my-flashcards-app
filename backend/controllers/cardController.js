@@ -1,7 +1,4 @@
-import Flashcard from '../models/flashcard.js'; // Make sure the casing matches your file name exactly
-
-// @desc    Get all flashcards (READ)
-// @route   GET /api/flashcards
+import Flashcard from '../models/flashcard.js';
 export const getCards = async (req, res) => {
     try {
         const cards = await Flashcard.find({ user: req.user.id });
@@ -11,15 +8,23 @@ export const getCards = async (req, res) => {
     }
 };
 
-// @desc    Create a new flashcard (CREATE)
-// @route   POST /api/flashcards
 export const createCard = async (req, res) => {
     try {
-        const { question, answer, category } = req.body;
+        const { question, answer, category, cardType, options, correctAnswers } = req.body;
+
+        // Auto-generate answer from correct options for MCQ cards
+        let finalAnswer = answer || '';
+        if ((cardType === 'single' || cardType === 'multiple') && options && correctAnswers) {
+            finalAnswer = correctAnswers.map(i => options[i]).filter(Boolean).join(', ');
+        }
+
         const newCard = await Flashcard.create({
             question,
-            answer,
-            category,
+            answer: finalAnswer,
+            category: category || 'General',
+            cardType: cardType || 'qa',
+            options: options || [],
+            correctAnswers: correctAnswers || [],
             user: req.user.id
         });
         res.status(201).json(newCard);
@@ -28,8 +33,6 @@ export const createCard = async (req, res) => {
     }
 };
 
-// @desc    Update a flashcard (UPDATE)
-// @route   PUT /api/flashcards/:id
 export const updateCard = async (req, res) => {
     try {
         const { id } = req.params;
@@ -44,9 +47,20 @@ export const updateCard = async (req, res) => {
             return res.status(401).json({ message: 'User not authorized' });
         }
 
-        const updatedCard = await Flashcard.findByIdAndUpdate(id, req.body, {
-            new: true, // Returns the updated document instead of the old one
-            runValidators: true // Ensures the update follows your Schema rules
+        const updateData = { ...req.body };
+
+        // Auto-generate answer from correct options for MCQ cards
+        const cardType = updateData.cardType || flashcard.cardType;
+        const options = updateData.options || flashcard.options;
+        const correctAnswers = updateData.correctAnswers || flashcard.correctAnswers;
+
+        if ((cardType === 'single' || cardType === 'multiple') && options && correctAnswers) {
+            updateData.answer = correctAnswers.map(i => options[i]).filter(Boolean).join(', ');
+        }
+
+        const updatedCard = await Flashcard.findByIdAndUpdate(id, updateData, {
+            new: true,
+            runValidators: true
         });
 
         res.status(200).json(updatedCard);
@@ -55,8 +69,6 @@ export const updateCard = async (req, res) => {
     }
 };
 
-// @desc    Delete a flashcard (DELETE)
-// @route   DELETE /api/flashcards/:id
 export const deleteCard = async (req, res) => {
     try {
         const { id } = req.params;

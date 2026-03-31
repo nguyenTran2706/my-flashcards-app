@@ -6,12 +6,16 @@ import { dirname, join } from 'path';
 import connectDB from './config/db.js';
 
 import cardRoutes from './routes/cardRoutes.js';
-import authRoutes from './routes/authRoutes.js'; // NEW IMPORT
+import authRoutes from './routes/authRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+// Load .env file (won't error if missing, e.g. on Vercel)
 dotenv.config({ path: join(__dirname, '.env') });
-connectDB();
+
+// Connect to MongoDB
+await connectDB();
 
 const app = express();
 app.use(cors());
@@ -19,7 +23,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/flashcards', cardRoutes);
-app.use('/api/users', authRoutes); // NEW ROUTE
+app.use('/api/users', authRoutes);
 
 const PORT = process.env.PORT || 5000;
 

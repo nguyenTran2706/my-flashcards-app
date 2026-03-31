@@ -12,11 +12,24 @@ const flashcardSchema = new mongoose.Schema({
     },
     answer: {
         type: String,
-        required: [true, 'Please add an answer'],
+        default: '',
     },
     category: {
         type: String,
         default: 'General',
+    },
+    cardType: {
+        type: String,
+        enum: ['qa', 'single', 'multiple'],
+        default: 'qa',
+    },
+    options: {
+        type: [String],
+        default: [],
+    },
+    correctAnswers: {
+        type: [Number],
+        default: [],
     },
 }, {
     timestamps: true,
