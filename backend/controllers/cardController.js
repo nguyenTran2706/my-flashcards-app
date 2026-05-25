@@ -15,7 +15,10 @@ export const createCard = async (req, res) => {
         // Auto-generate answer from correct options for MCQ cards
         let finalAnswer = answer || '';
         if ((cardType === 'single' || cardType === 'multiple') && options && correctAnswers) {
-            finalAnswer = correctAnswers.map(i => options[i]).filter(Boolean).join(', ');
+            finalAnswer = correctAnswers
+                .map((i) => options[i])
+                .filter(Boolean)
+                .join(', ');
         }
 
         const newCard = await Flashcard.create({
@@ -25,7 +28,7 @@ export const createCard = async (req, res) => {
             cardType: cardType || 'qa',
             options: options || [],
             correctAnswers: correctAnswers || [],
-            user: req.user.id
+            user: req.user.id,
         });
         res.status(201).json(newCard);
     } catch (error) {
@@ -55,12 +58,15 @@ export const updateCard = async (req, res) => {
         const correctAnswers = updateData.correctAnswers || flashcard.correctAnswers;
 
         if ((cardType === 'single' || cardType === 'multiple') && options && correctAnswers) {
-            updateData.answer = correctAnswers.map(i => options[i]).filter(Boolean).join(', ');
+            updateData.answer = correctAnswers
+                .map((i) => options[i])
+                .filter(Boolean)
+                .join(', ');
         }
 
         const updatedCard = await Flashcard.findByIdAndUpdate(id, updateData, {
             new: true,
-            runValidators: true
+            runValidators: true,
         });
 
         res.status(200).json(updatedCard);
