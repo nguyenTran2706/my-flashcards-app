@@ -6,16 +6,16 @@ Students and learners often need an efficient way to study and test their knowle
 
 ## Technical Stack
 
-| Layer | Technology |
-|---|---|
-| **Frontend** | React 18 (with Vite as build tool) |
-| **Styling** | Vanilla CSS with CSS custom properties (design tokens) |
-| **Routing** | React Router v6 (client-side SPA routing) |
-| **State Management** | React Context API (AuthContext) |
-| **Backend** | Node.js with Express.js |
-| **Database** | MongoDB with Mongoose ODM |
-| **Authentication** | JWT (JSON Web Tokens) with bcrypt password hashing |
-| **HTTP Client** | Axios |
+| Layer                | Technology                                             |
+| -------------------- | ------------------------------------------------------ |
+| **Frontend**         | React 18 (with Vite as build tool)                     |
+| **Styling**          | Vanilla CSS with CSS custom properties (design tokens) |
+| **Routing**          | React Router v6 (client-side SPA routing)              |
+| **State Management** | React Context API (AuthContext)                        |
+| **Backend**          | Node.js with Express.js                                |
+| **Database**         | MongoDB with Mongoose ODM                              |
+| **Authentication**   | JWT (JSON Web Tokens) with bcrypt password hashing     |
+| **HTTP Client**      | Axios                                                  |
 
 ## Features
 
@@ -75,24 +75,24 @@ my-flashcards-app/
 
 ## CRUD Operations
 
-| Operation | Description | API Endpoint |
-|---|---|---|
-| **Create** | Add a new flashcard (Q&A, single-answer, or multi-answer) | `POST /api/flashcards` |
-| **Read** | Fetch all flashcards for the logged-in user | `GET /api/flashcards` |
-| **Update** | Edit an existing flashcard's question, answers, or type | `PUT /api/flashcards/:id` |
-| **Delete** | Remove a flashcard permanently | `DELETE /api/flashcards/:id` |
+| Operation  | Description                                               | API Endpoint                 |
+| ---------- | --------------------------------------------------------- | ---------------------------- |
+| **Create** | Add a new flashcard (Q&A, single-answer, or multi-answer) | `POST /api/flashcards`       |
+| **Read**   | Fetch all flashcards for the logged-in user               | `GET /api/flashcards`        |
+| **Update** | Edit an existing flashcard's question, answers, or type   | `PUT /api/flashcards/:id`    |
+| **Delete** | Remove a flashcard permanently                            | `DELETE /api/flashcards/:id` |
 
 ## How to Run
 
 1. Clone the repository
 2. Install backend dependencies: `cd backend && npm install`
 3. Create a `.env` file in `/backend` with:
-   ```
-   MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
-   ```
+    ```
+    MONGO_URI=your_mongodb_connection_string
+    JWT_SECRET=your_jwt_secret
+    ```
 4. Install frontend dependencies: `cd frontend && npm install`
-5. Start the backend: `cd backend && node server.js`
+5. Start the backend: `cd backend && npm start`
 6. Start the frontend: `cd frontend && npm run dev`
 7. Open `http://localhost:5173` in your browser
 
