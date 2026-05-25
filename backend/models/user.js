@@ -1,23 +1,31 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-const userSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: [true, 'Please add a name'],
+const userSchema = new mongoose.Schema(
+    {
+        name: {
+            type: String,
+            required: [true, 'Please add a name'],
+        },
+        email: {
+            type: String,
+            required: [true, 'Please add an email'],
+            unique: true,
+        },
+        password: {
+            type: String,
+            required: [true, 'Please add a password'],
+        },
+        role: {
+            type: String,
+            enum: ['user', 'admin'],
+            default: 'user',
+        },
     },
-    email: {
-        type: String,
-        required: [true, 'Please add an email'],
-        unique: true,
+    {
+        timestamps: true,
     },
-    password: {
-        type: String,
-        required: [true, 'Please add a password'],
-    },
-}, {
-    timestamps: true,
-});
+);
 
 // Hash password before saving to database
 userSchema.pre('save', async function (next) {

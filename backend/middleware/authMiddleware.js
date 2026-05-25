@@ -4,10 +4,7 @@ import User from '../models/user.js';
 export const protect = async (req, res, next) => {
     let token;
 
-    if (
-        req.headers.authorization &&
-        req.headers.authorization.startsWith('Bearer')
-    ) {
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
             // Get token from header
             token = req.headers.authorization.split(' ')[1];
@@ -28,4 +25,12 @@ export const protect = async (req, res, next) => {
     if (!token) {
         res.status(401).json({ message: 'Not authorized, no token' });
     }
+};
+
+// Must run after `protect`. Rejects anyone who isn't an admin.
+export const adminOnly = (req, res, next) => {
+    if (req.user && req.user.role === 'admin') {
+        return next();
+    }
+    res.status(403).json({ message: 'Admin access required' });
 };
