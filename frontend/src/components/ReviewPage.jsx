@@ -15,6 +15,8 @@ const ReviewPage = () => {
     const [loading, setLoading] = useState(true);
     const [showSummary, setShowSummary] = useState(false);
     const [answersHistory, setAnswersHistory] = useState([]);
+    const [startedAt, setStartedAt] = useState(null);
+    const [historyStatus, setHistoryStatus] = useState('idle'); // 'idle' | 'saving' | 'saved' | 'failed'
 
     useEffect(() => {
         if (user) {
@@ -27,9 +29,41 @@ const ReviewPage = () => {
             const data = await api.getFlashcards();
             const shuffled = [...data].sort(() => Math.random() - 0.5);
             setFlashcards(shuffled);
+            setStartedAt(Date.now());
             setLoading(false);
         } catch (err) {
             setLoading(false);
+        }
+    };
+
+    // Persist the completed quiz so it shows up in the user's /history and in admin views.
+    // PRD says save failure is non-fatal — we surface a small status on the finished screen
+    // but never block the user from seeing their results.
+    const submitHistory = async (finalAnswers) => {
+        try {
+            setHistoryStatus('saving');
+            const correctCount = finalAnswers.filter((a) => a.isCorrect).length;
+            const answersPayload = finalAnswers.map((entry) => {
+                const card = flashcards[entry.cardIndex];
+                return {
+                    flashcard: card._id,
+                    question: card.question,
+                    userAnswer: entry.userAnswer || '',
+                    correctAnswer: card.answer || '',
+                    cardType: card.cardType || 'qa',
+                    isCorrect: entry.isCorrect,
+                };
+            });
+            await api.createHistory({
+                startedAt: startedAt || Date.now(),
+                completedAt: Date.now(),
+                totalCards: flashcards.length,
+                correctCount,
+                answers: answersPayload,
+            });
+            setHistoryStatus('saved');
+        } catch (err) {
+            setHistoryStatus('failed');
         }
     };
 
@@ -43,7 +77,7 @@ const ReviewPage = () => {
             setSelectedAnswers([index]);
         } else if (currentCard.cardType === 'multiple') {
             if (selectedAnswers.includes(index)) {
-                setSelectedAnswers(selectedAnswers.filter(i => i !== index));
+                setSelectedAnswers(selectedAnswers.filter((i) => i !== index));
             } else {
                 setSelectedAnswers([...selectedAnswers, index]);
             }
@@ -54,31 +88,32 @@ const ReviewPage = () => {
         if (!currentCard) return;
 
         let isCorrect = false;
+        let newEntry;
 
         if (currentCard.cardType === 'qa') {
             isCorrect = qaAnswer.trim().toLowerCase() === currentCard.answer.trim().toLowerCase();
-            setAnswersHistory(prev => [...prev, {
+            newEntry = {
                 cardIndex: currentIndex,
                 userAnswer: qaAnswer.trim(),
                 selectedIndices: [],
                 isCorrect,
-            }]);
+            };
         } else {
             const correct = [...(currentCard.correctAnswers || [])].sort();
             const selected = [...selectedAnswers].sort();
-            isCorrect = correct.length === selected.length && correct.every((val, idx) => val === selected[idx]);
-            setAnswersHistory(prev => [...prev, {
+            isCorrect =
+                correct.length === selected.length &&
+                correct.every((val, idx) => val === selected[idx]);
+            newEntry = {
                 cardIndex: currentIndex,
-                userAnswer: selectedAnswers.map(i => currentCard.options[i]).join(', '),
+                userAnswer: selectedAnswers.map((i) => currentCard.options[i]).join(', '),
                 selectedIndices: [...selectedAnswers],
                 isCorrect,
-            }]);
+            };
         }
 
-        if (isCorrect) {
-            setScore(score + 1);
-        }
-
+        setAnswersHistory((prev) => [...prev, newEntry]);
+        if (isCorrect) setScore(score + 1);
         setIsSubmitted(true);
     };
 
@@ -90,6 +125,7 @@ const ReviewPage = () => {
             setIsSubmitted(false);
         } else {
             setIsFinished(true);
+            submitHistory(answersHistory);
         }
     };
 
@@ -104,14 +140,31 @@ const ReviewPage = () => {
         setIsFinished(false);
         setShowSummary(false);
         setAnswersHistory([]);
+        setStartedAt(Date.now());
+        setHistoryStatus('idle');
     };
 
     if (!user) {
         return (
-            <div className="review-page" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-                <h2 style={{ fontSize: '1.8rem', color: 'var(--gray-900)', marginBottom: '16px' }}>Sign in to review</h2>
-                <p style={{ color: 'var(--gray-500)', marginBottom: '24px' }}>You need an account to review your flashcards.</p>
-                <Link to="/auth" className="btn btn-primary">Go to Login / Sign Up</Link>
+            <div
+                className="review-page"
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                }}
+            >
+                <h2 style={{ fontSize: '1.8rem', color: 'var(--gray-900)', marginBottom: '16px' }}>
+                    Sign in to review
+                </h2>
+                <p style={{ color: 'var(--gray-500)', marginBottom: '24px' }}>
+                    You need an account to review your flashcards.
+                </p>
+                <Link to="/auth" className="btn btn-primary">
+                    Go to Login / Sign Up
+                </Link>
             </div>
         );
     }
@@ -134,7 +187,9 @@ const ReviewPage = () => {
                     <div className="empty-icon">📝</div>
                     <h2>No flashcards to review</h2>
                     <p>Create some flashcards first, then come back to review them!</p>
-                    <Link to="/study" className="btn btn-primary">Go to Study</Link>
+                    <Link to="/study" className="btn btn-primary">
+                        Go to Study
+                    </Link>
                 </div>
             </div>
         );
@@ -151,7 +206,11 @@ const ReviewPage = () => {
 
                 <div className="summary-score-bar">
                     <span className="summary-score-text">
-                        Score: <strong>{score}/{flashcards.length}</strong> ({Math.round((score / flashcards.length) * 100)}%)
+                        Score:{' '}
+                        <strong>
+                            {score}/{flashcards.length}
+                        </strong>{' '}
+                        ({Math.round((score / flashcards.length) * 100)}%)
                     </span>
                     <div className="summary-legend">
                         <span className="legend-item correct">Correct</span>
@@ -166,14 +225,23 @@ const ReviewPage = () => {
                         const isCorrect = history.isCorrect;
 
                         return (
-                            <div key={idx} className={`summary-card ${isCorrect ? 'summary-correct' : 'summary-wrong'}`}>
+                            <div
+                                key={idx}
+                                className={`summary-card ${isCorrect ? 'summary-correct' : 'summary-wrong'}`}
+                            >
                                 <div className="summary-card-header">
                                     <span className="summary-q-number">Q{idx + 1}</span>
-                                    <span className={`summary-result-badge ${isCorrect ? 'correct' : 'wrong'}`}>
+                                    <span
+                                        className={`summary-result-badge ${isCorrect ? 'correct' : 'wrong'}`}
+                                    >
                                         {isCorrect ? 'Correct' : 'Incorrect'}
                                     </span>
                                     <span className="summary-card-type">
-                                        {card.cardType === 'qa' ? 'Q&A' : card.cardType === 'single' ? 'Single' : 'Multiple'}
+                                        {card.cardType === 'qa'
+                                            ? 'Q&A'
+                                            : card.cardType === 'single'
+                                              ? 'Single'
+                                              : 'Multiple'}
                                     </span>
                                 </div>
 
@@ -182,13 +250,19 @@ const ReviewPage = () => {
                                 {/* Q&A type */}
                                 {card.cardType === 'qa' && (
                                     <div className="summary-answers">
-                                        <div className={`summary-answer-row ${isCorrect ? 'correct' : 'wrong'}`}>
+                                        <div
+                                            className={`summary-answer-row ${isCorrect ? 'correct' : 'wrong'}`}
+                                        >
                                             <span className="summary-label">Your answer:</span>
-                                            <span className="summary-value">{history.userAnswer || '(no answer)'}</span>
+                                            <span className="summary-value">
+                                                {history.userAnswer || '(no answer)'}
+                                            </span>
                                         </div>
                                         {!isCorrect && (
                                             <div className="summary-answer-row correct">
-                                                <span className="summary-label">Correct answer:</span>
+                                                <span className="summary-label">
+                                                    Correct answer:
+                                                </span>
                                                 <span className="summary-value">{card.answer}</span>
                                             </div>
                                         )}
@@ -196,36 +270,61 @@ const ReviewPage = () => {
                                 )}
 
                                 {/* MCQ type */}
-                                {(card.cardType === 'single' || card.cardType === 'multiple') && card.options && (
-                                    <div className="summary-options">
-                                        {card.options.map((opt, optIdx) => {
-                                            const wasSelected = (history.selectedIndices || []).includes(optIdx);
-                                            const isCorrectOption = (card.correctAnswers || []).includes(optIdx);
-                                            let optionClass = 'summary-option';
-                                            if (isCorrectOption) optionClass += ' correct-option';
-                                            if (wasSelected && !isCorrectOption) optionClass += ' wrong-option';
-                                            if (wasSelected) optionClass += ' was-selected';
+                                {(card.cardType === 'single' || card.cardType === 'multiple') &&
+                                    card.options && (
+                                        <div className="summary-options">
+                                            {card.options.map((opt, optIdx) => {
+                                                const wasSelected = (
+                                                    history.selectedIndices || []
+                                                ).includes(optIdx);
+                                                const isCorrectOption = (
+                                                    card.correctAnswers || []
+                                                ).includes(optIdx);
+                                                let optionClass = 'summary-option';
+                                                if (isCorrectOption)
+                                                    optionClass += ' correct-option';
+                                                if (wasSelected && !isCorrectOption)
+                                                    optionClass += ' wrong-option';
+                                                if (wasSelected) optionClass += ' was-selected';
 
-                                            return (
-                                                <div key={optIdx} className={optionClass}>
-                                                    <span className="summary-opt-letter">{String.fromCharCode(65 + optIdx)}</span>
-                                                    <span className="summary-opt-text">{opt}</span>
-                                                    {wasSelected && <span className="summary-opt-tag selected-tag">Your answer</span>}
-                                                    {isCorrectOption && <span className="summary-opt-tag correct-tag">Correct</span>}
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                )}
+                                                return (
+                                                    <div key={optIdx} className={optionClass}>
+                                                        <span className="summary-opt-letter">
+                                                            {String.fromCharCode(65 + optIdx)}
+                                                        </span>
+                                                        <span className="summary-opt-text">
+                                                            {opt}
+                                                        </span>
+                                                        {wasSelected && (
+                                                            <span className="summary-opt-tag selected-tag">
+                                                                Your answer
+                                                            </span>
+                                                        )}
+                                                        {isCorrectOption && (
+                                                            <span className="summary-opt-tag correct-tag">
+                                                                Correct
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    )}
                             </div>
                         );
                     })}
                 </div>
 
                 <div className="summary-bottom-actions">
-                    <button className="btn btn-secondary" onClick={() => setShowSummary(false)}>Back to Results</button>
-                    <button className="btn btn-primary" onClick={handleRestart}>Try Again</button>
-                    <Link to="/study" className="btn btn-secondary">Back to Study</Link>
+                    <button className="btn btn-secondary" onClick={() => setShowSummary(false)}>
+                        Back to Results
+                    </button>
+                    <button className="btn btn-primary" onClick={handleRestart}>
+                        Try Again
+                    </button>
+                    <Link to="/study" className="btn btn-secondary">
+                        Back to Study
+                    </Link>
                 </div>
             </div>
         );
@@ -241,18 +340,36 @@ const ReviewPage = () => {
                         {percentage >= 80 ? '🎉' : percentage >= 50 ? '👍' : '💪'}
                     </div>
                     <h2 className="finish-title">Review Complete!</h2>
-                    <div className="score-display">
-                    </div>                        <div className="score-circle">
+                    <div className="score-display"></div>{' '}
+                    <div className="score-circle">
                         <span className="score-number">{percentage}%</span>
                     </div>
-                    <p className="score-detail">{score} out of {flashcards.length} correct</p>
+                    <p className="score-detail">
+                        {score} out of {flashcards.length} correct
+                    </p>
+                    {historyStatus === 'saving' && (
+                        <p className="history-status saving">Saving session…</p>
+                    )}
+                    {historyStatus === 'saved' && (
+                        <p className="history-status saved">Session saved to your history ✓</p>
+                    )}
+                    {historyStatus === 'failed' && (
+                        <p className="history-status failed">
+                            Couldn&apos;t save session — please check your connection.
+                        </p>
+                    )}
                 </div>
                 <div className="finish-actions">
-                    <button className="btn btn-primary" onClick={() => setShowSummary(true)}>View All Answers</button>
-                    <button className="btn btn-secondary" onClick={handleRestart}>Try Again</button>
-                    <Link to="/study" className="btn btn-secondary">Back to Study</Link>
+                    <button className="btn btn-primary" onClick={() => setShowSummary(true)}>
+                        View All Answers
+                    </button>
+                    <button className="btn btn-secondary" onClick={handleRestart}>
+                        Try Again
+                    </button>
+                    <Link to="/study" className="btn btn-secondary">
+                        Back to Study
+                    </Link>
                 </div>
-
             </div>
         );
     }
@@ -286,15 +403,23 @@ const ReviewPage = () => {
                     ></div>
                 </div>
                 <div className="review-progress-info">
-                    <span className="progress-count">Question {currentIndex + 1} of {flashcards.length}</span>
-                    <span className="progress-score">Score: {score}/{currentIndex + (isSubmitted ? 1 : 0)}</span>
+                    <span className="progress-count">
+                        Question {currentIndex + 1} of {flashcards.length}
+                    </span>
+                    <span className="progress-score">
+                        Score: {score}/{currentIndex + (isSubmitted ? 1 : 0)}
+                    </span>
                 </div>
             </div>
 
             {/* Quiz Card */}
             <div className="review-card">
                 <div className="review-card-type">
-                    {currentCard.cardType === 'qa' ? 'Q&A' : currentCard.cardType === 'single' ? 'Single Answer' : 'Multiple Answers'}
+                    {currentCard.cardType === 'qa'
+                        ? 'Q&A'
+                        : currentCard.cardType === 'single'
+                          ? 'Single Answer'
+                          : 'Multiple Answers'}
                 </div>
                 <h2 className="review-question">{currentCard.question}</h2>
 
@@ -307,12 +432,19 @@ const ReviewPage = () => {
                             value={qaAnswer}
                             onChange={(e) => setQaAnswer(e.target.value)}
                             disabled={isSubmitted}
-                            onKeyDown={(e) => { if (e.key === 'Enter' && !isSubmitted) handleSubmitAnswer(); }}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' && !isSubmitted) handleSubmitAnswer();
+                            }}
                         />
                         {isSubmitted && (
-                            <div className={`qa-result ${qaAnswer.trim().toLowerCase() === currentCard.answer.trim().toLowerCase() ? 'correct' : 'wrong'}`}>
+                            <div
+                                className={`qa-result ${qaAnswer.trim().toLowerCase() === currentCard.answer.trim().toLowerCase() ? 'correct' : 'wrong'}`}
+                            >
                                 <span className="result-icon">
-                                    {qaAnswer.trim().toLowerCase() === currentCard.answer.trim().toLowerCase() ? 'Correct' : 'Incorrect'}
+                                    {qaAnswer.trim().toLowerCase() ===
+                                    currentCard.answer.trim().toLowerCase()
+                                        ? 'Correct'
+                                        : 'Incorrect'}
                                 </span>
                                 <p className="correct-answer-text">
                                     Correct answer: <strong>{currentCard.answer}</strong>
@@ -323,25 +455,27 @@ const ReviewPage = () => {
                 )}
 
                 {/* MCQ Type */}
-                {(currentCard.cardType === 'single' || currentCard.cardType === 'multiple') && currentCard.options && (
-                    <div className="review-options">
-                        {currentCard.cardType === 'multiple' && !isSubmitted && (
-                            <p className="mcq-hint">Select all correct answers</p>
-                        )}
-                        {currentCard.options.map((option, index) => (
-                            <button
-                                key={index}
-                                className={getOptionClass(index)}
-                                onClick={() => handleSelectAnswer(index)}
-                                disabled={isSubmitted}
-                            >
-                                <span className="option-letter-badge">{String.fromCharCode(65 + index)}</span>
-                                <span className="option-text">{option}</span>
-
-                            </button>
-                        ))}
-                    </div>
-                )}
+                {(currentCard.cardType === 'single' || currentCard.cardType === 'multiple') &&
+                    currentCard.options && (
+                        <div className="review-options">
+                            {currentCard.cardType === 'multiple' && !isSubmitted && (
+                                <p className="mcq-hint">Select all correct answers</p>
+                            )}
+                            {currentCard.options.map((option, index) => (
+                                <button
+                                    key={index}
+                                    className={getOptionClass(index)}
+                                    onClick={() => handleSelectAnswer(index)}
+                                    disabled={isSubmitted}
+                                >
+                                    <span className="option-letter-badge">
+                                        {String.fromCharCode(65 + index)}
+                                    </span>
+                                    <span className="option-text">{option}</span>
+                                </button>
+                            ))}
+                        </div>
+                    )}
 
                 {/* Action Buttons */}
                 <div className="review-actions">
@@ -351,7 +485,9 @@ const ReviewPage = () => {
                             onClick={handleSubmitAnswer}
                             disabled={
                                 (currentCard.cardType === 'qa' && !qaAnswer.trim()) ||
-                                ((currentCard.cardType === 'single' || currentCard.cardType === 'multiple') && selectedAnswers.length === 0)
+                                ((currentCard.cardType === 'single' ||
+                                    currentCard.cardType === 'multiple') &&
+                                    selectedAnswers.length === 0)
                             }
                         >
                             Submit Answer
