@@ -29,12 +29,15 @@ const userSchema = new mongoose.Schema(
 
 // Hash password before saving to database
 userSchema.pre('save', async function (next) {
+    // Skip hashing when the password hasn't changed (e.g. updating other fields),
+    // otherwise we'd re-hash an already-hashed value and break login.
     if (!this.isModified('password')) {
-        next();
+        return next();
     }
 
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
+    next();
 });
 
 // Match user entered password to hashed password in database
