@@ -71,7 +71,8 @@ my-flashcards-app/
 │   │   └── adminRoutes.js           # Admin-only endpoints
 │   ├── scripts/
 │   │   ├── seedFlashcards.js        # Seed 20 sample cards for a user (by email)
-│   │   └── setAdmin.js              # Promote an existing user to admin (by email)
+│   │   ├── setAdmin.js              # Promote an existing user to admin (by email)
+│   │   └── exportDb.js              # Export all collections to /database-export
 │   ├── server.js                    # Express server entry point
 │   └── .env                         # Environment variables (DB URI, JWT secret) — not committed
 ├── frontend/
@@ -98,6 +99,10 @@ my-flashcards-app/
 │   │   └── main.jsx                # React app entry point
 │   ├── vite.config.js              # Vite build/dev configuration
 │   └── index.html                  # Single HTML file (SPA entry)
+├── database-export/                # MongoDB data export (JSON, one file per collection)
+│   ├── users.json
+│   ├── flashcards.json
+│   └── viewhistories.json
 └── README.md
 ```
 
@@ -158,6 +163,24 @@ Run these from the `backend/` folder after creating an account:
 
 - **Seed sample cards** for a user: `node scripts/seedFlashcards.js <email>` (inserts 20 example flashcards)
 - **Promote a user to admin**: `node scripts/setAdmin.js <email>`
+
+## Database Export
+
+A snapshot of the MongoDB database (`flashcardsDB`) is included in the [`database-export/`](database-export/) folder as JSON, with one file per collection:
+
+| File                  | Collection      | Contents                                              |
+| --------------------- | --------------- | ---------------------------------------------------- |
+| `users.json`          | `users`         | User accounts (passwords are stored as bcrypt hashes) |
+| `flashcards.json`     | `flashcards`    | All flashcards (Q&A and MCQ)                          |
+| `viewhistories.json`  | `viewhistories` | Saved review-quiz sessions                            |
+
+To regenerate the export from a live database, run from the `backend/` folder:
+
+```
+node scripts/exportDb.js
+```
+
+> Note: passwords appear only as one-way bcrypt hashes — no plain-text credentials are included in the export.
 
 ## Challenges Overcome
 
