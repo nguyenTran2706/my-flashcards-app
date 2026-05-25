@@ -710,6 +710,37 @@ textarea {
     background: rgba(239, 68, 68, 0.18);
 }
 
+.history-notes {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--gray-300);
+}
+
+.history-notes-view {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.history-notes-text {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.history-notes textarea {
+    width: 100%;
+    resize: vertical;
+}
+
+.history-notes-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
 .history-answers {
     list-style: none;
     padding: 16px 0 0;

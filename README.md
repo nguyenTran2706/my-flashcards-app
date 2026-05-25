@@ -7,6 +7,28 @@
 | Khoi Nguyen Tran | 25114442   |
 | Truong An Vu     | 14508814   |
 
+## Workload Allocation
+
+Work was split so each member owns a full vertical slice of the stack. Individual contributions are also visible in the Git commit history — each member authored their own files.
+
+**Khoi Nguyen Tran (25114442) — Backend**
+
+- `backend/config/db.js`, `backend/server.js`
+- `backend/models/` — `user.js`, `flashcard.js`, `viewHistory.js`
+- `backend/controllers/` — `authController.js`, `cardController.js`, `historyController.js`, `adminController.js`
+- `backend/routes/` — `authRoutes.js`, `cardRoutes.js`, `historyRoutes.js`, `adminRoutes.js`
+- `backend/middleware/authMiddleware.js`
+- `backend/scripts/` — `seedFlashcards.js`, `setAdmin.js`, `exportDb.js`
+
+**Truong An Vu (14508814) — Frontend**
+
+- `frontend/src/components/` — all React components (auth, flashcards, review, history, admin)
+- `frontend/src/context/AuthContext.jsx`, `frontend/src/hooks/useTransientMessage.js`
+- `frontend/src/services/api.js`
+- `frontend/src/App.jsx`, `frontend/src/main.jsx`
+- `frontend/src/index.css`, `frontend/src/App.css`, `frontend/index.html`
+- `README.md` and the database export
+
 ## Problem Statement
 
 Students and learners often need an efficient way to study and test their knowledge. FlashMaster solves this by providing an interactive flashcard application where users can create different types of study cards (Q&A, single-answer MCQ, and multiple-answer MCQ), organise them into categories, and test themselves through a built-in review quiz mode with instant feedback and scoring. Every completed quiz is saved to a personal review history so learners can track their progress over time, and an admin role lets staff oversee all users and their learning activity.
@@ -86,11 +108,11 @@ my-flashcards-app/
 │   ├── src/
 │   │   ├── components/
 │   │   │   ├── AuthForms.jsx        # Login and registration forms
-│   │   │   ├── flashcard.jsx        # Individual flashcard with flip animation
-│   │   │   ├── flashcardForm.jsx    # Card creation form with type + category selector
-│   │   │   ├── flashcardList.jsx    # Grid display with live search box
+│   │   │   ├── Flashcard.jsx        # Individual flashcard with flip animation
+│   │   │   ├── FlashcardForm.jsx    # Card creation form with type + category selector
+│   │   │   ├── FlashcardList.jsx    # Grid display with live search box
 │   │   │   ├── LandingPage.jsx      # Homepage with hero section and features
-│   │   │   ├── navbar.jsx           # Navigation bar with auth + role-aware links
+│   │   │   ├── Navbar.jsx           # Navigation bar with auth + role-aware links
 │   │   │   ├── ReviewPage.jsx       # Quiz review mode with scoring + history save
 │   │   │   ├── HistoryPage.jsx      # List of the user's past review sessions
 │   │   │   ├── SessionCard.jsx      # Single history session (expandable, editable notes)
@@ -98,6 +120,8 @@ my-flashcards-app/
 │   │   │   └── AdminUserDetailPage.jsx # Admin view of one user's full history
 │   │   ├── context/
 │   │   │   └── AuthContext.jsx      # Global authentication state provider
+│   │   ├── hooks/
+│   │   │   └── useTransientMessage.js  # Auto-clearing success/info banner hook
 │   │   ├── services/
 │   │   │   └── api.js               # Axios API client for backend calls
 │   │   ├── App.jsx                  # Main app with routes and study page logic

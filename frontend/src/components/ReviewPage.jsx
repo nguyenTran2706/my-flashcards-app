@@ -340,7 +340,6 @@ const ReviewPage = () => {
                         {percentage >= 80 ? '🎉' : percentage >= 50 ? '👍' : '💪'}
                     </div>
                     <h2 className="finish-title">Review Complete!</h2>
-                    <div className="score-display"></div>{' '}
                     <div className="score-circle">
                         <span className="score-number">{percentage}%</span>
                     </div>

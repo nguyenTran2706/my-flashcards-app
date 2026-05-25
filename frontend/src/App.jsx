@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './context/AuthContext';
-import Navbar from './components/navbar';
+import Navbar from './components/Navbar';
 import LandingPage from './components/LandingPage';
-import FlashcardForm from './components/flashcardForm';
-import FlashcardList from './components/flashcardList';
+import FlashcardForm from './components/FlashcardForm';
+import FlashcardList from './components/FlashcardList';
 import ReviewPage from './components/ReviewPage';
 import HistoryPage from './components/HistoryPage';
 import AdminUsersPage from './components/AdminUsersPage';
 import AdminUserDetailPage from './components/AdminUserDetailPage';
 import AuthForms from './components/AuthForms';
 import * as api from './services/api';
+import { useTransientMessage } from './hooks/useTransientMessage';
 import './App.css';
 
 const emptyForm = () => ({
@@ -46,7 +47,7 @@ const StudyPage = () => {
     const [editingId, setEditingId] = useState(null);
     const [editingOriginal, setEditingOriginal] = useState(null);
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const [success, setSuccess] = useTransientMessage();
     const [searchQuery, setSearchQuery] = useState('');
     const { user } = useContext(AuthContext);
 
@@ -67,13 +68,6 @@ const StudyPage = () => {
             fetchCards();
         }
     }, [user]);
-
-    // Auto-clear success messages so they read like toasts.
-    useEffect(() => {
-        if (!success) return;
-        const t = setTimeout(() => setSuccess(''), 3000);
-        return () => clearTimeout(t);
-    }, [success]);
 
     const fetchCards = async () => {
         try {

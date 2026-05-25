@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import * as api from '../services/api';
+import { useTransientMessage } from '../hooks/useTransientMessage';
 import SessionCard from './SessionCard';
 
 const HistoryPage = () => {
@@ -9,17 +10,11 @@ const HistoryPage = () => {
     const [sessions, setSessions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const [success, setSuccess] = useTransientMessage();
 
     useEffect(() => {
         if (user) fetchSessions();
     }, [user]);
-
-    useEffect(() => {
-        if (!success) return;
-        const t = setTimeout(() => setSuccess(''), 3000);
-        return () => clearTimeout(t);
-    }, [success]);
 
     const fetchSessions = async () => {
         try {
@@ -39,6 +34,16 @@ const HistoryPage = () => {
             setSuccess('Session deleted');
         } catch (err) {
             setError('Could not delete that session.');
+        }
+    };
+
+    const handleSaveNotes = async (id, notes) => {
+        try {
+            const updated = await api.updateHistoryNotes(id, notes);
+            setSessions((prev) => prev.map((s) => (s._id === id ? updated : s)));
+            setSuccess('Note saved');
+        } catch (err) {
+            setError('Could not save your note.');
         }
     };
 
@@ -88,7 +93,12 @@ const HistoryPage = () => {
             ) : (
                 <ul className="history-list">
                     {sessions.map((s) => (
-                        <SessionCard key={s._id} session={s} onDelete={handleDelete} />
+                        <SessionCard
+                            key={s._id}
+                            session={s}
+                            onDelete={handleDelete}
+                            onSaveNotes={handleSaveNotes}
+                        />
                     ))}
                 </ul>
             )}

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import * as api from '../services/api';
+import { useTransientMessage } from '../hooks/useTransientMessage';
 
 const formatDate = (iso) => (iso ? new Date(iso).toLocaleDateString() : '');
 
@@ -10,17 +11,11 @@ const AdminUsersPage = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const [success, setSuccess] = useTransientMessage();
 
     useEffect(() => {
         fetchUsers();
     }, []);
-
-    useEffect(() => {
-        if (!success) return;
-        const t = setTimeout(() => setSuccess(''), 3000);
-        return () => clearTimeout(t);
-    }, [success]);
 
     const fetchUsers = async () => {
         try {
