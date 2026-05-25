@@ -1,0 +1,78 @@
+[
+  {
+    "_id": "69b17d636945d2f688bcaa23",
+    "name": "Tony Tran",
+    "email": "trankhoinguyen2706@gmail.com",
+    "password": "$2b$10$cHQ6GYoPsZyOaI3V3nIs3uRPRhjAs.Y5djaek8gmokK7n0yT/KFnW",
+    "createdAt": "2026-03-11T14:34:11.877Z",
+    "updatedAt": "2026-05-18T16:43:50.271Z",
+    "__v": 0,
+    "role": "admin"
+  },
+  {
+    "_id": "69cbd8b92a0a32834e0d0e44",
+    "name": "Ben Tran",
+    "email": "khoinguyen@gmail.com",
+    "password": "$2b$10$v5QF6XntKnBP30W9Z5xCSueluh1QXUZGjZzkvBtC4iMJT08JPuEgC",
+    "createdAt": "2026-03-31T14:22:49.378Z",
+    "updatedAt": "2026-03-31T14:22:49.378Z",
+    "__v": 0
+  },
+  {
+    "_id": "69cbd8fca3d78cf362c18e21",
+    "name": "Candice",
+    "email": "ttha20062005@gmail.com",
+    "password": "$2b$10$iqs/VjK8E0pH.3WCh.0bsejxFlrTNpxIXlFKEM.W79NNQa4X/L/ua",
+    "createdAt": "2026-03-31T14:23:56.603Z",
+    "updatedAt": "2026-03-31T14:23:56.603Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ddcd08290913e947426484",
+    "name": "Tony Tran",
+    "email": "trankhoinguyen27062005@gmail.com",
+    "password": "$2b$10$8P37hAZZLnp5EgMWOF0XJOJDLXRoDeLGwMEQdRlCJUKF.3X54bFrW",
+    "createdAt": "2026-04-14T05:13:44.474Z",
+    "updatedAt": "2026-04-14T05:13:44.474Z",
+    "__v": 0
+  },
+  {
+    "_id": "69ddf840fe8664460ce24ccc",
+    "name": "Khoi Nguyen Tran",
+    "email": "khoi@gmail.com",
+    "password": "$2b$10$ijV7Ye2RSFwclCtJ8D0P4OE1nWuQZDmHkAyKDjbe/plzoZ5jV2Aom",
+    "createdAt": "2026-04-14T08:18:08.720Z",
+    "updatedAt": "2026-04-14T08:18:08.720Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a13fa92ca0a7bf44a1a9723",
+    "name": "An Vu",
+    "email": "anvu1234@gmail.com",
+    "password": "$2b$10$DQpRNJeDU0ZzPeYRBujfXe879Rae1j.P0hlVbReYBF095.apDSJFG",
+    "role": "user",
+    "createdAt": "2026-05-25T07:30:26.736Z",
+    "updatedAt": "2026-05-25T07:30:26.736Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a140e0dca0a7bf44a1a97b3",
+    "name": "Tony Tran",
+    "email": "hello@gmail.com",
+    "password": "$2b$10$lmCHse2dQGoUsbvGK9k5ReCkTZ4UcVBju.yhVrC/ZChImoo1fTXa.",
+    "role": "user",
+    "createdAt": "2026-05-25T08:53:33.532Z",
+    "updatedAt": "2026-05-25T08:53:33.532Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a140ec4ca0a7bf44a1a97bb",
+    "name": "focusflow",
+    "email": "khoinguyentran@gmai.com",
+    "password": "$2b$10$c2ZFDUl9gTDO/GN0/PlAC.56KShDCwa9qbqFtUuqZX97H1ozo7y16",
+    "role": "user",
+    "createdAt": "2026-05-25T08:56:36.480Z",
+    "updatedAt": "2026-05-25T08:56:36.480Z",
+    "__v": 0
+  }
+]

@@ -1,0 +1,392 @@
+[
+  {
+    "_id": "6a13f9fcca0a7bf44a1a96d9",
+    "user": "69b17d636945d2f688bcaa23",
+    "startedAt": "2026-05-25T07:23:38.571Z",
+    "completedAt": "2026-05-25T07:27:55.987Z",
+    "totalCards": 25,
+    "correctCount": 13,
+    "scorePercent": 52,
+    "answers": [
+      {
+        "flashcard": "6a0b422768b73579e00499ad",
+        "question": "hello",
+        "userAnswer": "eawr",
+        "correctAnswer": "hi",
+        "cardType": "qa",
+        "isCorrect": false
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe49",
+        "question": "Which metal has the highest electrical conductivity?",
+        "userAnswer": "Gold",
+        "correctAnswer": "",
+        "cardType": "single",
+        "isCorrect": false
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe50",
+        "question": "Which of these numbers are even?",
+        "userAnswer": "6, 10, 12",
+        "correctAnswer": "",
+        "cardType": "multiple",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe4b",
+        "question": "Which of these are prime numbers?",
+        "userAnswer": "7, 11",
+        "correctAnswer": "",
+        "cardType": "multiple",
+        "isCorrect": false
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe4a",
+        "question": "Which planet is closest to the Sun?",
+        "userAnswer": "Mercury",
+        "correctAnswer": "",
+        "cardType": "single",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe4d",
+        "question": "Which of these are noble gases?",
+        "userAnswer": "Oxygen, Hydrogen",
+        "correctAnswer": "",
+        "cardType": "multiple",
+        "isCorrect": false
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe44",
+        "question": "Which of these is a prime number?",
+        "userAnswer": "11",
+        "correctAnswer": "",
+        "cardType": "single",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe40",
+        "question": "What is the powerhouse of the cell?",
+        "userAnswer": "weraq",
+        "correctAnswer": "Mitochondria",
+        "cardType": "qa",
+        "isCorrect": false
+      },
+      {
+        "flashcard": "69cbc8b097a51e25ec423e66",
+        "question": "What is the capital city of China",
+        "userAnswer": "beijing",
+        "correctAnswer": "Beijing",
+        "cardType": "qa",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe43",
+        "question": "What gas do plants absorb from the atmosphere during photosynthesis?",
+        "userAnswer": "retga",
+        "correctAnswer": "Carbon dioxide",
+        "cardType": "qa",
+        "isCorrect": false
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe3d",
+        "question": "What is the value of pi to 2 decimal places?",
+        "userAnswer": "3.14",
+        "correctAnswer": "3.14",
+        "cardType": "qa",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "69cbcaa5602b8a175bdd571f",
+        "question": "What is the calculus not to get 15",
+        "userAnswer": "10 + 6",
+        "correctAnswer": "10 + 6",
+        "cardType": "single",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe48",
+        "question": "What is 7 × 8?",
+        "userAnswer": "56",
+        "correctAnswer": "",
+        "cardType": "single",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe4f",
+        "question": "Which of the following are renewable energy sources?",
+        "userAnswer": "Hydro, Wind, Solar",
+        "correctAnswer": "",
+        "cardType": "multiple",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a0b376768b73579e0049946",
+        "question": "dsf",
+        "userAnswer": "dsfdsfs",
+        "correctAnswer": "eeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "cardType": "qa",
+        "isCorrect": false
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe41",
+        "question": "What is the square root of 144?",
+        "userAnswer": "12",
+        "correctAnswer": "12",
+        "cardType": "qa",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe3e",
+        "question": "What is the SI unit of force?",
+        "userAnswer": "silic",
+        "correctAnswer": "Newton",
+        "cardType": "qa",
+        "isCorrect": false
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe3f",
+        "question": "What is the chemical symbol for gold?",
+        "userAnswer": "au",
+        "correctAnswer": "Au",
+        "cardType": "qa",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe42",
+        "question": "What is the speed of light in vacuum (m/s)?",
+        "userAnswer": "vcb",
+        "correctAnswer": "299,792,458",
+        "cardType": "qa",
+        "isCorrect": false
+      },
+      {
+        "flashcard": "69cbcad8602b8a175bdd572a",
+        "question": "What is the calculus to get 50",
+        "userAnswer": "25 + 25, 46 + 4, 78 - 28",
+        "correctAnswer": "25 + 25, 46 + 4, 78 - 28",
+        "cardType": "multiple",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe4c",
+        "question": "Which of the following are forms of energy?",
+        "userAnswer": "Thermal",
+        "correctAnswer": "",
+        "cardType": "multiple",
+        "isCorrect": false
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe45",
+        "question": "Newton's first law of motion is also known as the law of...?",
+        "userAnswer": "Gravity",
+        "correctAnswer": "",
+        "cardType": "single",
+        "isCorrect": false
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe47",
+        "question": "Which organ in the human body pumps blood?",
+        "userAnswer": "Heart",
+        "correctAnswer": "",
+        "cardType": "single",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe46",
+        "question": "What is the chemical formula H₂O commonly known as?",
+        "userAnswer": "Water",
+        "correctAnswer": "",
+        "cardType": "single",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a0d4482ba4df3604d52fe4e",
+        "question": "Which of these animals are mammals?",
+        "userAnswer": "Whale",
+        "correctAnswer": "",
+        "cardType": "multiple",
+        "isCorrect": false
+      }
+    ],
+    "notes": "",
+    "createdAt": "2026-05-25T07:27:56.062Z",
+    "updatedAt": "2026-05-25T07:27:56.062Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a140bfaca0a7bf44a1a9795",
+    "user": "6a13fa92ca0a7bf44a1a9723",
+    "startedAt": "2026-05-25T08:41:22.611Z",
+    "completedAt": "2026-05-25T08:44:42.624Z",
+    "totalCards": 20,
+    "correctCount": 15,
+    "scorePercent": 75,
+    "answers": [
+      {
+        "flashcard": "6a140a9113119f8b12443a5a",
+        "question": "What is the largest planet in our solar system?",
+        "userAnswer": "Jupiter",
+        "correctAnswer": "Jupiter",
+        "cardType": "qa",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a63",
+        "question": "Who is credited with inventing the World Wide Web?",
+        "userAnswer": "Tim Berners-Lee",
+        "correctAnswer": "",
+        "cardType": "single",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a62",
+        "question": "The Great Pyramid of Giza is located in which country?",
+        "userAnswer": "Egypt",
+        "correctAnswer": "",
+        "cardType": "single",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a59",
+        "question": "Who painted the Mona Lisa?",
+        "userAnswer": "Leonardo De vinci",
+        "correctAnswer": "Leonardo da Vinci",
+        "cardType": "qa",
+        "isCorrect": false
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a69",
+        "question": "Which of these are among the Seven Wonders of the Ancient World?",
+        "userAnswer": "Hanging Gardens of Babylon, Great Pyramid of Giza, Colossus of Rhodes",
+        "correctAnswer": "",
+        "cardType": "multiple",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a64",
+        "question": "Which of these are capital cities?",
+        "userAnswer": "Cairo, Ottawa, Paris",
+        "correctAnswer": "",
+        "cardType": "multiple",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a67",
+        "question": "Which of these countries are in Europe?",
+        "userAnswer": "Spain, Germany, Italy",
+        "correctAnswer": "",
+        "cardType": "multiple",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a60",
+        "question": "In which language was the original 'Don Quixote' written?",
+        "userAnswer": "French",
+        "correctAnswer": "",
+        "cardType": "single",
+        "isCorrect": false
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a5c",
+        "question": "How many players from one team are on the field in a standard game of soccer?",
+        "userAnswer": "11",
+        "correctAnswer": "Eleven",
+        "cardType": "qa",
+        "isCorrect": false
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a58",
+        "question": "Who wrote the play 'Romeo and Juliet'?",
+        "userAnswer": "William Shakespears",
+        "correctAnswer": "William Shakespeare",
+        "cardType": "qa",
+        "isCorrect": false
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a57",
+        "question": "In which year did World War II end?",
+        "userAnswer": "1945",
+        "correctAnswer": "1945",
+        "cardType": "qa",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a68",
+        "question": "Which of these animals are primates?",
+        "userAnswer": "Chimpanzee, Gorilla, Orangutan",
+        "correctAnswer": "",
+        "cardType": "multiple",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a5e",
+        "question": "Who was the first President of the United States?",
+        "userAnswer": "George Washington",
+        "correctAnswer": "",
+        "cardType": "single",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a5d",
+        "question": "Which is the largest ocean on Earth?",
+        "userAnswer": "Pacific",
+        "correctAnswer": "",
+        "cardType": "single",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a61",
+        "question": "What is the largest land animal on Earth?",
+        "userAnswer": "African Elephant",
+        "correctAnswer": "",
+        "cardType": "single",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a56",
+        "question": "What is the capital city of Japan?",
+        "userAnswer": "Tokyo",
+        "correctAnswer": "Tokyo",
+        "cardType": "qa",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a65",
+        "question": "Which of these are planets in our solar system?",
+        "userAnswer": "Saturn, Venus, Mars",
+        "correctAnswer": "",
+        "cardType": "multiple",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a66",
+        "question": "Which of these plays were written by William Shakespeare?",
+        "userAnswer": "War and Peace, Othello, The Odyssey",
+        "correctAnswer": "",
+        "cardType": "multiple",
+        "isCorrect": false
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a5f",
+        "question": "Which composer wrote the Ninth Symphony featuring 'Ode to Joy'?",
+        "userAnswer": "Beethoven",
+        "correctAnswer": "",
+        "cardType": "single",
+        "isCorrect": true
+      },
+      {
+        "flashcard": "6a140a9113119f8b12443a5b",
+        "question": "What is the tallest mountain above sea level?",
+        "userAnswer": "Mount Everest",
+        "correctAnswer": "Mount Everest",
+        "cardType": "qa",
+        "isCorrect": true
+      }
+    ],
+    "notes": "",
+    "createdAt": "2026-05-25T08:44:42.658Z",
+    "updatedAt": "2026-05-25T08:44:42.658Z",
+    "__v": 0
+  }
+]
