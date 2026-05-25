@@ -1,5 +1,12 @@
 # FlashMaster - Smart Flashcard Learning App
 
+## Group Members
+
+| Name             | Student ID |
+| ---------------- | ---------- |
+| Khoi Nguyen Tran | 25114442   |
+| Truong An Vu     | 14508814   |
+
 ## Problem Statement
 
 Students and learners often need an efficient way to study and test their knowledge. FlashMaster solves this by providing an interactive flashcard application where users can create different types of study cards (Q&A, single-answer MCQ, and multiple-answer MCQ), organise them into categories, and test themselves through a built-in review quiz mode with instant feedback and scoring. Every completed quiz is saved to a personal review history so learners can track their progress over time, and an admin role lets staff oversee all users and their learning activity.
