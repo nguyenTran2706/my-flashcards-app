@@ -38,15 +38,35 @@ const AuthForms = () => {
     };
 
     return (
-        <div className="auth-page" style={{ paddingTop: '100px', display: 'flex', justifyContent: 'center', background: 'var(--bg-primary)', minHeight: '100vh' }}>
-            <div className="card-form" style={{ maxWidth: '400px', width: '100%', margin: '0 20px', height: 'fit-content' }}>
+        <div
+            className="auth-page"
+            style={{
+                paddingTop: '100px',
+                display: 'flex',
+                justifyContent: 'center',
+                background: 'var(--bg-primary)',
+                minHeight: '100vh',
+            }}
+        >
+            <div
+                className="card-form"
+                style={{
+                    maxWidth: '400px',
+                    width: '100%',
+                    margin: '0 20px',
+                    height: 'fit-content',
+                }}
+            >
                 <h2 style={{ textAlign: 'center', marginBottom: '24px' }}>
                     {isLogin ? 'Welcome Back' : 'Create an Account'}
                 </h2>
 
                 {error && <div className="error-banner">{error}</div>}
 
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <form
+                    onSubmit={handleSubmit}
+                    style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+                >
                     {!isLogin && (
                         <div className="form-group">
                             <label className="form-label">Name</label>
@@ -87,17 +107,34 @@ const AuthForms = () => {
                         />
                     </div>
 
-                    <button type="submit" className="btn-submit" style={{ marginTop: '8px' }} disabled={isLoading}>
-                        {isLoading ? 'Processing...' : (isLogin ? 'Sign In' : 'Sign Up')}
+                    <button
+                        type="submit"
+                        className="btn-submit"
+                        style={{ marginTop: '8px' }}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? 'Processing...' : isLogin ? 'Sign In' : 'Sign Up'}
                     </button>
                 </form>
 
-                <div style={{ textAlign: 'center', marginTop: '24px', fontSize: '0.9rem', color: 'var(--gray-500)' }}>
-                    {isLogin ? "Don't have an account? " : "Already have an account? "}
+                <div
+                    style={{
+                        textAlign: 'center',
+                        marginTop: '24px',
+                        fontSize: '0.9rem',
+                        color: 'var(--gray-500)',
+                    }}
+                >
+                    {isLogin ? "Don't have an account? " : 'Already have an account? '}
                     <button
                         type="button"
                         onClick={() => setIsLogin(!isLogin)}
-                        style={{ background: 'none', border: 'none', color: 'var(--primary-500)', fontWeight: '600' }}
+                        style={{
+                            background: 'none',
+                            border: 'none',
+                            color: 'var(--primary-500)',
+                            fontWeight: '600',
+                        }}
                     >
                         {isLogin ? 'Sign Up' : 'Sign In'}
                     </button>

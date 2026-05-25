@@ -99,7 +99,9 @@ html {
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family:
+        -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.5;
@@ -580,6 +582,14 @@ textarea {
     border: 1px solid var(--border-subtle);
 }
 
+.card-search {
+    margin-bottom: 20px;
+}
+
+.card-search .form-input {
+    width: 100%;
+}
+
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -608,17 +618,261 @@ textarea {
     color: var(--text-muted);
 }
 
-/* Error Banner */
-.error-banner {
+/* ============================================
+   History Page
+   ============================================ */
+.history-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 100px 24px 80px;
+}
+
+.history-page.signed-out {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+}
+
+.history-header {
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.history-header h1 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    color: var(--gray-900);
+}
+
+.history-header p {
+    color: var(--text-muted);
+}
+
+.history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.history-item {
+    background: white;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-md, 12px);
+    padding: 16px 20px;
+}
+
+.history-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.history-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.history-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.history-score {
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.history-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-small {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+}
+
+.btn-danger {
+    background: rgba(239, 68, 68, 0.1);
+    color: #b91c1c;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.btn-danger:hover {
+    background: rgba(239, 68, 68, 0.18);
+}
+
+.history-answers {
+    list-style: none;
+    padding: 16px 0 0;
+    margin: 16px 0 0;
+    border-top: 1px solid var(--gray-300);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.history-answer {
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    border-left: 3px solid transparent;
+    background: var(--gray-100, #f3f4f6);
+}
+
+.history-answer.correct {
+    border-left-color: #16a34a;
+}
+
+.history-answer.wrong {
+    border-left-color: #ef4444;
+}
+
+.history-answer-q {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--gray-900);
+}
+
+.history-answer-row {
+    font-size: 0.9rem;
+    color: var(--gray-700, #374151);
+}
+
+.history-answer-row .label {
+    display: inline-block;
+    min-width: 90px;
+    color: var(--text-muted);
+}
+
+.inline-link {
+    color: var(--primary-500);
+    text-decoration: underline;
+}
+
+/* ============================================
+   Admin Pages
+   ============================================ */
+.admin-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 24px 80px;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: var(--radius-md, 12px);
+    overflow: hidden;
+    border: 1px solid var(--gray-300);
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--gray-200, #e5e7eb);
+}
+
+.admin-table th {
+    background: var(--gray-100, #f3f4f6);
+    font-weight: 600;
+    color: var(--gray-700, #374151);
+}
+
+.admin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-table tbody tr:hover {
+    background: var(--gray-100, #f9fafb);
+}
+
+.admin-row-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.role-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.role-badge.role-user {
+    background: rgba(66, 85, 255, 0.1);
+    color: var(--primary-500);
+}
+
+.role-badge.role-admin {
+    background: rgba(234, 88, 12, 0.12);
+    color: #c2410c;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .admin-table th,
+    .admin-table td {
+        padding: 8px 10px;
+        font-size: 0.82rem;
+    }
+}
+
+/* Review-finished history save status */
+.history-status {
+    margin-top: 12px;
+    font-size: 0.9rem;
+}
+.history-status.saving {
+    color: var(--text-muted);
+}
+.history-status.saved {
+    color: #16a34a;
+}
+.history-status.failed {
+    color: #ef4444;
+}
+
+/* Banners (error / success share layout) */
+.error-banner,
+.success-banner {
     max-width: 700px;
     margin: 0 auto 24px;
     padding: 12px 20px;
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.25);
     border-radius: var(--radius-sm);
-    color: #fca5a5;
+    border: 1px solid transparent;
     font-size: 0.9rem;
     text-align: center;
+}
+
+.error-banner {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.25);
+    color: #fca5a5;
+}
+
+.success-banner {
+    background: rgba(34, 197, 94, 0.12);
+    border-color: rgba(34, 197, 94, 0.3);
+    color: #86efac;
 }
 
 /* ============================================

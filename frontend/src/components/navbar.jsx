@@ -20,10 +20,7 @@ const Navbar = () => {
             </Link>
 
             <div className="navbar-links">
-                <Link
-                    to="/"
-                    className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
-                >
+                <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
                     Home
                 </Link>
                 <Link
@@ -38,13 +35,46 @@ const Navbar = () => {
                 >
                     Review
                 </Link>
+                {user && (
+                    <Link
+                        to="/history"
+                        className={`nav-link ${location.pathname === '/history' ? 'active' : ''}`}
+                    >
+                        History
+                    </Link>
+                )}
+                {user?.role === 'admin' && (
+                    <Link
+                        to="/admin/users"
+                        className={`nav-link ${location.pathname.startsWith('/admin') ? 'active' : ''}`}
+                    >
+                        Admin
+                    </Link>
+                )}
 
                 {user ? (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginLeft: '8px' }}>
-                        <span style={{ fontSize: '0.9rem', fontWeight: '500', color: 'var(--gray-600)' }}>
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px',
+                            marginLeft: '8px',
+                        }}
+                    >
+                        <span
+                            style={{
+                                fontSize: '0.9rem',
+                                fontWeight: '500',
+                                color: 'var(--gray-600)',
+                            }}
+                        >
                             {user.name}
                         </span>
-                        <button onClick={handleLogout} className="btn-secondary" style={{ padding: '6px 16px', fontSize: '0.85rem' }}>
+                        <button
+                            onClick={handleLogout}
+                            className="btn-secondary"
+                            style={{ padding: '6px 16px', fontSize: '0.85rem' }}
+                        >
                             Sign Out
                         </button>
                     </div>

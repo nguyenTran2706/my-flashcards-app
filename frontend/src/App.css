@@ -32,7 +32,9 @@
     border: 1px solid var(--gray-300);
     background: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+    transition:
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast);
 }
 
 .flashcard-container:hover .flashcard-inner .flashcard-front,

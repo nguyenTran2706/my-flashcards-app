@@ -6,9 +6,7 @@ const LandingPage = () => {
         <div className="landing-page">
             <section className="hero-section">
                 <div className="hero-content">
-                    <h1 className="hero-title">
-                        Simple flashcards for everyday study
-                    </h1>
+                    <h1 className="hero-title">Simple flashcards for everyday study</h1>
 
                     <p className="hero-subtitle">
                         Keep a small collection of cards for the topics you actually care about.
