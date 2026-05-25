@@ -1,14 +1,28 @@
 import React from 'react';
 
-const FlashcardForm = ({ formData, editingId, onInputChange, onSubmit, onCancel, onOptionChange, onAddOption, onRemoveOption, onCorrectAnswerChange }) => {
+const FlashcardForm = ({
+    formData,
+    editingId,
+    onInputChange,
+    onSubmit,
+    onCancel,
+    onOptionChange,
+    onAddOption,
+    onRemoveOption,
+    onCorrectAnswerChange,
+}) => {
     const cardType = formData.cardType || 'qa';
 
     const getCardTypeLabel = (type) => {
         switch (type) {
-            case 'qa': return 'Q&A';
-            case 'single': return 'One Correct Answer';
-            case 'multiple': return 'Multiple Answers';
-            default: return 'Q&A';
+            case 'qa':
+                return 'Q&A';
+            case 'single':
+                return 'One Correct Answer';
+            case 'multiple':
+                return 'Multiple Answers';
+            default:
+                return 'Q&A';
         }
     };
 
@@ -21,12 +35,14 @@ const FlashcardForm = ({ formData, editingId, onInputChange, onSubmit, onCancel,
                 <div className="card-type-selector">
                     <label className="form-label">Card Type</label>
                     <div className="type-pills">
-                        {['qa', 'single', 'multiple'].map(type => (
+                        {['qa', 'single', 'multiple'].map((type) => (
                             <button
                                 key={type}
                                 type="button"
                                 className={`type-pill ${cardType === type ? 'active' : ''}`}
-                                onClick={() => onInputChange({ target: { name: 'cardType', value: type } })}
+                                onClick={() =>
+                                    onInputChange({ target: { name: 'cardType', value: type } })
+                                }
                             >
                                 {getCardTypeLabel(type)}
                             </button>
@@ -68,7 +84,9 @@ const FlashcardForm = ({ formData, editingId, onInputChange, onSubmit, onCancel,
                         <label className="form-label">
                             Answer Options
                             <span className="label-hint">
-                                {cardType === 'single' ? '— Select one correct answer' : '— Select all correct answers'}
+                                {cardType === 'single'
+                                    ? '— Select one correct answer'
+                                    : '— Select all correct answers'}
                             </span>
                         </label>
 
@@ -81,19 +99,25 @@ const FlashcardForm = ({ formData, editingId, onInputChange, onSubmit, onCancel,
                                                 type="radio"
                                                 name="correctAnswer"
                                                 className="option-radio"
-                                                checked={(formData.correctAnswers || []).includes(index)}
+                                                checked={(formData.correctAnswers || []).includes(
+                                                    index,
+                                                )}
                                                 onChange={() => onCorrectAnswerChange(index)}
                                             />
                                         ) : (
                                             <input
                                                 type="checkbox"
                                                 className="option-checkbox"
-                                                checked={(formData.correctAnswers || []).includes(index)}
+                                                checked={(formData.correctAnswers || []).includes(
+                                                    index,
+                                                )}
                                                 onChange={() => onCorrectAnswerChange(index)}
                                             />
                                         )}
                                     </div>
-                                    <span className="option-letter">{String.fromCharCode(65 + index)}</span>
+                                    <span className="option-letter">
+                                        {String.fromCharCode(65 + index)}
+                                    </span>
                                     <input
                                         className="form-input option-input"
                                         placeholder={`Option ${String.fromCharCode(65 + index)}...`}

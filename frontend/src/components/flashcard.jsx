@@ -6,24 +6,29 @@ const Flashcard = ({ card, onDelete, onEdit }) => {
 
     const getTypeLabel = (type) => {
         switch (type) {
-            case 'single': return 'SINGLE ANSWER';
-            case 'multiple': return 'MULTIPLE ANSWERS';
-            default: return 'Q&A';
+            case 'single':
+                return 'SINGLE ANSWER';
+            case 'multiple':
+                return 'MULTIPLE ANSWERS';
+            default:
+                return 'Q&A';
         }
     };
 
     const getTypeClass = (type) => {
         switch (type) {
-            case 'single': return 'type-single';
-            case 'multiple': return 'type-multiple';
-            default: return 'type-qa';
+            case 'single':
+                return 'type-single';
+            case 'multiple':
+                return 'type-multiple';
+            default:
+                return 'type-qa';
         }
     };
 
     return (
         <div className="flashcard-container" onClick={() => setIsFlipped(!isFlipped)}>
             <div className={`flashcard-inner ${isFlipped ? 'is-flipped' : ''}`}>
-
                 <div className="flashcard-front">
                     <span className={`card-category ${getTypeClass(card.cardType)}`}>
                         {getTypeLabel(card.cardType)}
@@ -32,17 +37,27 @@ const Flashcard = ({ card, onDelete, onEdit }) => {
                     <span className="card-hint">Click card to see the answer</span>
 
                     <div className="card-actions" onClick={(e) => e.stopPropagation()}>
-                        <button className="card-action-btn" onClick={() => onEdit(card)} title="Edit">
+                        <button
+                            className="card-action-btn"
+                            onClick={() => onEdit(card)}
+                            title="Edit"
+                        >
                             Edit
                         </button>
-                        <button className="card-action-btn delete" onClick={() => onDelete(card._id)} title="Delete">
+                        <button
+                            className="card-action-btn delete"
+                            onClick={() => onDelete(card._id)}
+                            title="Delete"
+                        >
                             Delete
                         </button>
                     </div>
                 </div>
 
                 <div className="flashcard-back">
-                    {(card.cardType === 'single' || card.cardType === 'multiple') && card.options && card.options.length > 0 ? (
+                    {(card.cardType === 'single' || card.cardType === 'multiple') &&
+                    card.options &&
+                    card.options.length > 0 ? (
                         <div className="back-options">
                             <span className="card-answer-label">
                                 {card.cardType === 'single' ? 'Correct Answer' : 'Correct Answers'}
@@ -53,7 +68,9 @@ const Flashcard = ({ card, onDelete, onEdit }) => {
                                         key={i}
                                         className={`back-option ${(card.correctAnswers || []).includes(i) ? 'correct' : ''}`}
                                     >
-                                        <span className="back-option-letter">{String.fromCharCode(65 + i)}</span>
+                                        <span className="back-option-letter">
+                                            {String.fromCharCode(65 + i)}
+                                        </span>
                                         <span className="back-option-text">{opt}</span>
                                         {(card.correctAnswers || []).includes(i) && (
                                             <span className="correct-badge">✓</span>
@@ -69,7 +86,6 @@ const Flashcard = ({ card, onDelete, onEdit }) => {
                         </>
                     )}
                 </div>
-
             </div>
         </div>
     );
